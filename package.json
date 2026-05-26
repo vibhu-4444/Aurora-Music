@@ -1,27 +1,26 @@
 {
-  "name": "aurora-immersive-music-hero",
+  "name": "aurora-platform",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "vite --host 0.0.0.0",
-    "build": "tsc && vite build",
-    "preview": "vite preview --host 0.0.0.0"
-  },
-  "dependencies": {
-    "@vitejs/plugin-react": "^4.3.4",
-    "lucide-react": "^0.468.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "vite": "^6.0.1"
+    "dev": "concurrently -n web,api,worker -c cyan,magenta,yellow \"npm run dev -w @aurora/web\" \"npm run dev -w @aurora/api\" \"npm run dev -w @aurora/worker\"",
+    "dev:web": "npm run dev -w @aurora/web",
+    "dev:api": "npm run dev -w @aurora/api",
+    "dev:worker": "npm run dev -w @aurora/worker",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "db:generate": "npm run db:generate -w @aurora/database",
+    "db:migrate": "npm run db:migrate -w @aurora/database",
+    "db:studio": "npm run db:studio -w @aurora/database"
   },
   "devDependencies": {
-    "@types/react": "^19.2.15",
-    "@types/react-dom": "^19.2.3",
-    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
     "playwright": "^1.60.0",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.16",
     "typescript": "^5.7.2"
   }
 }

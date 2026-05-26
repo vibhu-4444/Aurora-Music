@@ -1,0 +1,27 @@
+{
+  "name": "@aurora/worker",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/worker.js",
+  "scripts": {
+    "dev": "tsx watch src/worker.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/worker.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@aurora/config": "0.1.0",
+    "@aurora/database": "0.1.0",
+    "@aurora/queues": "0.1.0",
+    "@aurora/types": "0.1.0",
+    "bullmq": "^5.34.2",
+    "execa": "^9.5.2",
+    "pino": "^9.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowRight, Github, Globe, Heart, Linkedin, Mail } from "lucide-react";
 import { FormEvent, useCallback, useEffect, useRef } from "react";
 
