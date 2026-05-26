@@ -1,5 +1,4 @@
 import { Queue, QueueEvents } from "bullmq";
-import IORedis from "ioredis";
 import { getEnv } from "@aurora/config";
 import type { CreateImportRequest } from "@aurora/types";
 
@@ -15,21 +14,22 @@ export interface ImportJobData extends CreateImportRequest {
   userId: string;
 }
 
-let redis: IORedis | null = null;
-
 export function getRedisConnection() {
-  if (!redis) {
-    redis = new IORedis(getEnv().REDIS_URL, {
-      maxRetriesPerRequest: null,
-      enableReadyCheck: false,
-    });
-  }
+  const url = new URL(getEnv().REDIS_URL);
 
-  return redis;
+  return {
+    host: url.hostname,
+    port: Number(url.port || 6379),
+    username: url.username || undefined,
+    password: url.password || undefined,
+    maxRetriesPerRequest: null,
+    enableReadyCheck: false,
+    tls: url.protocol === "rediss:" ? {} : undefined,
+  };
 }
 
 export function createImportQueue() {
-  return new Queue<ImportJobData>(queueNames.imports, {
+  return new Queue<ImportJobData, unknown, "extract-audio">(queueNames.imports, {
     connection: getRedisConnection(),
     defaultJobOptions: {
       attempts: 3,

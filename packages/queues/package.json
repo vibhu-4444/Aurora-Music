@@ -12,8 +12,7 @@
   "dependencies": {
     "@aurora/config": "0.1.0",
     "@aurora/types": "0.1.0",
-    "bullmq": "^5.34.2",
-    "ioredis": "^5.4.2"
+    "bullmq": "^5.34.2"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
